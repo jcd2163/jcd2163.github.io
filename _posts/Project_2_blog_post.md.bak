@@ -1,7 +1,4 @@
----
-title:  "Predicting housing prices project"
-date:   2018-05-22 
----
+
 # DSI-US-4 Project 2 Regression Challenge
 For this project (our second of the class), we were asked to predict the price of homes at sale in Aimes, Iowa based on historical data. We were given two data sets - a training set and a prediction set. The instructors set up a Kaggle competition for all current DSI students where we were to submit our predictions. Below, I’ve tried to give an overview of each of the steps I took in cleaning up and evaluating the dataset as well as the modeling process. 
 
@@ -60,7 +57,7 @@ sns.pairplot(data=df, y_vars=['Lot Frontage'], x_vars=['Lot Area', '1st Flr SF']
 ```
 
 
-![png](/images/Project_2_blog_post_files/Project_2_blog_post_6_0.png)
+![png](Project_2_blog_post_files/Project_2_blog_post_6_0.png)
 
 
 Lot Frontage vs Lot Area and 1st Flr SF. Not
@@ -82,7 +79,7 @@ sns.jointplot(y=log_frontage, x=log_area, size=5);
 
 
 
-![png](/images/Project_2_blog_post_files/Project_2_blog_post_9_1.png)
+![png](Project_2_blog_post_files/Project_2_blog_post_9_1.png)
 
 
 
@@ -95,7 +92,7 @@ sns.jointplot(y=log_frontage, x=log_1st, size=5);
 
 
 
-![png](/images/Project_2_blog_post_files/Project_2_blog_post_10_1.png)
+![png](Project_2_blog_post_files/Project_2_blog_post_10_1.png)
 
 
 
@@ -195,7 +192,7 @@ sns.pairplot(data=df, y_vars=['SalePrice'], x_vars=['Lot Frontage', 'Lot Area', 
 ```
 
 
-![png](/images/Project_2_blog_post_files/Project_2_blog_post_16_0.png)
+![png](Project_2_blog_post_files/Project_2_blog_post_16_0.png)
 
 
 Clear outliers present above. Electing to remove them.
@@ -219,7 +216,7 @@ sns.pairplot(data=df, y_vars=['SalePrice'], x_vars=['Lot Frontage', 'Lot Area', 
 ```
 
 
-![png](/images/Project_2_blog_post_files/Project_2_blog_post_19_0.png)
+![png](Project_2_blog_post_files/Project_2_blog_post_19_0.png)
 
 
 Updated distributions with outliers removed. Distributions now appear more linear, 0 values aside. 
@@ -336,7 +333,7 @@ sns.distplot(df['SalePrice']);
 
 
 
-![png](/images/Project_2_blog_post_files/Project_2_blog_post_33_1.png)
+![png](Project_2_blog_post_files/Project_2_blog_post_33_1.png)
 
 
 
@@ -350,7 +347,7 @@ plt.xlabel('Log Sale Price');
 
 
 
-![png](/images/Project_2_blog_post_files/Project_2_blog_post_34_1.png)
+![png](Project_2_blog_post_files/Project_2_blog_post_34_1.png)
 
 
 
@@ -438,7 +435,7 @@ plt.xlabel('Predicted Sale Price');
 
 
 
-![png](/images/Project_2_blog_post_files/Project_2_blog_post_42_1.png)
+![png](Project_2_blog_post_files/Project_2_blog_post_42_1.png)
 
 
 Plot above showing Sale Prices from the test dataset of the TTS versus what the model predicted. 
