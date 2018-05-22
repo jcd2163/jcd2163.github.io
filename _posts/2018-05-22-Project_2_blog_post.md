@@ -77,9 +77,6 @@ log_1st = np.log(df['1st Flr SF'])
 sns.jointplot(y=log_frontage, x=log_area, size=5);
 ```
 
-    /anaconda3/envs/dsi/lib/python3.6/site-packages/matplotlib/axes/_axes.py:6462: UserWarning: The 'normed' kwarg is deprecated, and has been replaced by the 'density' kwarg.
-      warnings.warn("The 'normed' kwarg is deprecated, and has been "
-
 
 
 ![png](/images/Project_2_blog_post_files/Project_2_blog_post_9_1.png)
@@ -89,9 +86,6 @@ sns.jointplot(y=log_frontage, x=log_area, size=5);
 ```python
 sns.jointplot(y=log_frontage, x=log_1st, size=5);
 ```
-
-    /anaconda3/envs/dsi/lib/python3.6/site-packages/matplotlib/axes/_axes.py:6462: UserWarning: The 'normed' kwarg is deprecated, and has been replaced by the 'density' kwarg.
-      warnings.warn("The 'normed' kwarg is deprecated, and has been "
 
 
 
@@ -157,12 +151,6 @@ def fill_lot_frontage(dataframe):
 fill_lot_frontage(df)
 fill_lot_frontage(test)
 ```
-
-    /anaconda3/envs/dsi/lib/python3.6/site-packages/ipykernel/__main__.py:22: SettingWithCopyWarning: 
-    A value is trying to be set on a copy of a slice from a DataFrame
-    
-    See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
-
 
 I originally tried to have this function not have to interate through each row and change all null values at once but that was giving me some issues for some reason. I would like to work on this again so that I can run this function after a TTS (since it iterates over each row, I need to run this before removing any outliers).
 
