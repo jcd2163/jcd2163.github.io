@@ -51,7 +51,9 @@ test = pd.read_csv('./test.csv')
 # df.isnull().sum().sort_values(ascending=False)
 ```
 
-Dataset contains 80 features and a target column of sale price. Some features have significant missing values or outliers which I will need to clean up. Below, I created a function to replace null values in Lot Frontage with a linear regression. I selected Lot Area and 1st Flr SF for my features in that regression. Initially, I got a low score and so I looked around online to see if anyone had encountered this before. I came across this website in my search: https://nycdatascience.com/blog/student-works/housing-prices-in-ames-iowa-kaggles-advanced-regression-competition/. They suggested taking the log of both the features and target for this exercise because that produced the most linear relationship. I updated my function with this suggestion and it returned a much higher score. I also visualized this below. In the first graphs before I took the logs, you can see that there is less of a linear relationship and presence of outliers. In the subsequent graphs, the outliers have been reduced and there is more of a linear relationship, especially between Lot Frontage and Lot Area. I will eventually do something similar below with the target column as that distribution exhibits the qualities that warrant taking the log of the values.
+Dataset contains 80 features and a target column of sale price. Some features have significant missing values or outliers which I will need to clean up. Below, I created a function to replace null values in Lot Frontage with a linear regression. I selected Lot Area and 1st Flr SF for my features in that regression. Initially, I got a low score and so I looked around online to see if anyone had encountered this before. 
+
+I came across this website in my search: https://nycdatascience.com/blog/student-works/housing-prices-in-ames-iowa-kaggles-advanced-regression-competition/. They suggested taking the log of both the features and target for this exercise because that produced the most linear relationship. I updated my function with this suggestion and it returned a much higher score. I also visualized this below. In the first graphs before I took the logs, you can see that there is less of a linear relationship and presence of outliers. In the subsequent graphs, the outliers have been reduced and there is more of a linear relationship, especially between Lot Frontage and Lot Area. I will eventually do something similar below with the target column as that distribution exhibits the qualities that warrant taking the log of the values.
 
 Then I wrote another function to change the extreme outliers to reduce some affects later on with my scaling but decided against using it for this limited of a dataset. In the future, I would like to test the benefits of this function. 
 
@@ -156,7 +158,7 @@ fill_lot_frontage(df)
 fill_lot_frontage(test)
 ```
 
-I originally tried to have this function not have to interate through each row and change all null values at once but that was giving me some issues for some reason. I would like to work on this again so that I can run this function after a train test split (since it iterates over each row, I need to run this before removing any outliers).
+I originally tried to have this function not have to iterate through each row and change all null values at once but that was giving me some issues for some reason. I would like to work on this again so that I can run this function after a train test split (since it iterates over each row, I need to run this before removing any outliers).
 
 
 ```python
