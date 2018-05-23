@@ -2,7 +2,7 @@
 title:  "Predicting housing prices project"
 date:   2018-05-22 
 ---
-Overview & Define Problem
+<b>'Overview & Define Problem'</b>
 
 For this project (our second of the class), we were asked to predict the price of homes at sale in Aimes, Iowa based on historical data. We were given two data sets - a training set and a prediction set. The instructors set up a Kaggle competition for all current DSI students where we were to submit our predictions. Below, I’ve tried to give an overview of each of the steps I took in cleaning up and evaluating the dataset as well as the modeling process. 
 
@@ -296,9 +296,9 @@ Xd, testd = get_dummied(X, test)
 
 Modeling 
 
-Now that my feature engineering is completed, I will move into modeling. Since I will be running elastic net cross validation below, I do not need to do any feature selection now. This will cause my model to take a long time to run, but will get me to the optimal set of features to use.
+Now that my feature engineering was completed, I moved into the modeling portion of the process. Since I will be running elastic net cross validation below, I do not need to do any feature selection now. This will cause my model to take a long time to run, but will get me to the optimal set of features to use.
 
-Before modeling I am going to take the log of the sale prices. As the distribution shows below, the majority of sale prices are located in the low end of the graph while higher prices constitute the tail of the distribution. By taking the log of the values, these qualities are reduced and the distribution becomes more normal. This will help in estimating the higher valued houses that would seem more like outliers without taking this approach. The second graph shows the updated distribution.
+Before modeling I took the log of the sale prices. As the distribution shows below, the majority of sale prices are located in the low end of the graph while higher prices constitute the tail of the distribution. By taking the log of the values, these qualities are reduced and the distribution becomes more normal. This helped in estimating the higher valued houses that would seem more like outliers without taking this approach. The second graph shows the updated distribution.
 
 Later, I will have to take the exponential of the values after prediction.
 
@@ -307,23 +307,13 @@ Later, I will have to take the exponential of the values after prediction.
 sns.distplot(df['SalePrice']);
 ```
 
-    /anaconda3/envs/dsi/lib/python3.6/site-packages/matplotlib/axes/_axes.py:6462: UserWarning: The 'normed' kwarg is deprecated, and has been replaced by the 'density' kwarg.
-      warnings.warn("The 'normed' kwarg is deprecated, and has been "
-
-
-
 ![png](/images/Project_2_blog_post_files/Project_2_blog_post_33_1.png)
-
 
 
 ```python
 sns.distplot(np.log(df['SalePrice']))
 plt.xlabel('Log Sale Price');
 ```
-
-    /anaconda3/envs/dsi/lib/python3.6/site-packages/matplotlib/axes/_axes.py:6462: UserWarning: The 'normed' kwarg is deprecated, and has been replaced by the 'density' kwarg.
-      warnings.warn("The 'normed' kwarg is deprecated, and has been "
-
 
 
 ![png](/images/Project_2_blog_post_files/Project_2_blog_post_34_1.png)
@@ -393,8 +383,6 @@ y_hat_test = np.exp(y_hat_test)
 print(r2_score(np.exp(y_test), y_hat_test))
 ```
 
-    /anaconda3/envs/dsi/lib/python3.6/site-packages/sklearn/linear_model/coordinate_descent.py:491: ConvergenceWarning: Objective did not converge. You might want to increase the number of iterations. Fitting data with very small alpha may cause precision problems.
-      ConvergenceWarning)
 
 
     0.9246258531631035
