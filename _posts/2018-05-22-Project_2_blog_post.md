@@ -2,15 +2,13 @@
 title:  "Predicting housing prices project"
 date:   2018-05-22 
 ---
-Overview & Define Problem
-
 For this project (our second of the class), we were asked to predict the price of homes at sale in Aimes, Iowa based on historical data. We were given two data sets - a training set and a prediction set. The instructors set up a Kaggle competition for all current DSI students where we were to submit our predictions. Below, I’ve tried to give an overview of each of the steps I took in cleaning up and evaluating the dataset as well as the modeling process. 
 
 I made the decision early on to sacrifice explainability (e.g. limited number of predictors and their associated coefficients) and create a high variance, low bias model with many interaction features in order to derive as accurate of predictions as possible. Since time was not an issue, I thought it was ok to enter into the regularization portion of the process with as many features as possible. 
 
 Although it took a long time for my model perform cross validation to determine the optimal alpha and L1 ratio to use (I used ElasticNet for my modeling), I’m happy to report that this approach enabled me to place first in the competition out of 80+ participants across the country! If you have any questions about this project or would like to reach out to discuss, please feel free to email me at joedorfman@gmail.com. I’d love to discuss this project and my approach with you!
 
-Gather & Explore Data
+Explore Data & Clean Data
 
 ```python
 #import
@@ -96,8 +94,6 @@ sns.jointplot(y=log_frontage, x=log_1st, size=5);
 
 Lot Frontage vs Lot Area and 1st Flr SF (w/ taking the log of each)
 
-
-Clean Data
 
 ```python
 # def fill_lot_frontage(dataframe):
