@@ -2,7 +2,7 @@
 title:  "Predicting housing prices project"
 date:   2018-05-22 
 ---
-<b>'Overview & Define Problem'</b>
+Overview & Define Problem
 
 For this project (our second of the class), we were asked to predict the price of homes at sale in Aimes, Iowa based on historical data. We were given two data sets - a training set and a prediction set. The instructors set up a Kaggle competition for all current DSI students where we were to submit our predictions. Below, I’ve tried to give an overview of each of the steps I took in cleaning up and evaluating the dataset as well as the modeling process. 
 
@@ -369,7 +369,7 @@ Interestingly, after taking the log of the sale prices my L1 ratio went from 1 t
 # create ElasticNet model
 enet = ElasticNet(alpha=optimal_enet.alpha_, l1_ratio=optimal_enet.l1_ratio_)
 ```
-
+Evaluate Model
 
 ```python
 # fit model to training data and score against test set from TTS
@@ -384,10 +384,9 @@ print(r2_score(np.exp(y_test), y_hat_test))
 ```
 
 
-
     0.9246258531631035
 
-
+My R-squared score ranged from .90-.95. I was happy with this and decided to make my predictions on the prediction dataset and submit my results after a few iterations. Because Kaggle allows for multiple submissions, I was able to change some of the techniques I used above for different submissions.
 
 ```python
 # plot predicted vs actuals
@@ -396,9 +395,6 @@ plt.title('Test Sale Price vs. Predicted Sale Price')
 plt.ylabel('Test Sale Price')
 plt.xlabel('Predicted Sale Price');
 ```
-
-    /anaconda3/envs/dsi/lib/python3.6/site-packages/matplotlib/axes/_axes.py:6462: UserWarning: The 'normed' kwarg is deprecated, and has been replaced by the 'density' kwarg.
-      warnings.warn("The 'normed' kwarg is deprecated, and has been "
 
 
 
@@ -433,7 +429,7 @@ submit.set_index('Id', inplace=True)
 submit.to_csv('./submit.csv')
 ```
 
-
+Supplemental Model Information 
 ```python
 #model information
 print('intercept: ', enet.intercept_)
