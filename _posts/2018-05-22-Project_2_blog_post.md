@@ -2,14 +2,15 @@
 title:  "Predicting housing prices project"
 date:   2018-05-22 
 ---
-<b>Overview & Define Problem</b>
+Overview & Define Problem
+
 For this project (our second of the class), we were asked to predict the price of homes at sale in Aimes, Iowa based on historical data. We were given two data sets - a training set and a prediction set. The instructors set up a Kaggle competition for all current DSI students where we were to submit our predictions. Below, I’ve tried to give an overview of each of the steps I took in cleaning up and evaluating the dataset as well as the modeling process. 
 
 I made the decision early on to sacrifice explainability (e.g. limited number of predictors and their associated coefficients) and create a high variance, low bias model with many interaction features in order to derive as accurate of predictions as possible. Since time was not an issue, I thought it was ok to enter into the regularization portion of the process with as many features as possible. 
 
 Although it took a long time for my model perform cross validation to determine the optimal alpha and L1 ratio to use (I used ElasticNet for my modeling), I’m happy to report that this approach enabled me to place first in the competition out of 80+ participants across the country! If you have any questions about this project or would like to reach out to discuss, please feel free to email me at joedorfman@gmail.com. I’d love to discuss this project and my approach with you!
 
-<b>Gather & Explore Data</b>
+Gather & Explore Data
 
 ```python
 #import
@@ -50,7 +51,7 @@ test = pd.read_csv('./test.csv')
 # df.isnull().sum().sort_values(ascending=False)
 ```
 
-Dataset contains 80 features and a target column of sale price. Some features have significant missing values or outliers which I will need to clean up. Below, I created a function to replace null values in Lot Frontage with a linear regression. I selected Lot Area and 1st Flr SF for my features in that regression. Initially, I got a low score and so I looked around online to see if anyone had encountered this before. I came across this website in my search: https://nycdatascience.com/blog/student-works/housing-prices-in-ames-iowa-kaggles-advanced-regression-competition/. They suggested taking the log of both the features and target for this exercise because that produced the most linear relationship. I updated my function with this suggestion and it returned a much higher score. I also visualized this below. In the first graphs before I took the logs, you can see that there is less of a linear relationship and presence of outliers. In the subsequent graphs, the outliers have been reduced and there is more of a linear relationship, especially between Lot Frontage and Lot Area. I will do something similar below with the target column as that distribution exhibits the qualities that warrant taking the log of the values.
+Dataset contains 80 features and a target column of sale price. Some features have significant missing values or outliers which I will need to clean up. Below, I created a function to replace null values in Lot Frontage with a linear regression. I selected Lot Area and 1st Flr SF for my features in that regression. Initially, I got a low score and so I looked around online to see if anyone had encountered this before. I came across this website in my search: https://nycdatascience.com/blog/student-works/housing-prices-in-ames-iowa-kaggles-advanced-regression-competition/. They suggested taking the log of both the features and target for this exercise because that produced the most linear relationship. I updated my function with this suggestion and it returned a much higher score. I also visualized this below. In the first graphs before I took the logs, you can see that there is less of a linear relationship and presence of outliers. In the subsequent graphs, the outliers have been reduced and there is more of a linear relationship, especially between Lot Frontage and Lot Area. I will eventually do something similar below with the target column as that distribution exhibits the qualities that warrant taking the log of the values.
 
 Then I wrote another function to change the extreme outliers to reduce some affects later on with my scaling but decided against using it for this limited of a dataset. In the future, I would like to test the benefits of this function. 
 
@@ -63,7 +64,7 @@ sns.pairplot(data=df, y_vars=['Lot Frontage'], x_vars=['Lot Area', '1st Flr SF']
 ![png](/images/Project_2_blog_post_files/Project_2_blog_post_6_0.png)
 
 
-Lot Frontage vs Lot Area and 1st Flr SF. Not
+Lot Frontage vs Lot Area and 1st Flr SF (w/out taking the log of each)
 
 
 ```python
@@ -91,7 +92,10 @@ sns.jointplot(y=log_frontage, x=log_1st, size=5);
 
 ![png](/images/Project_2_blog_post_files/Project_2_blog_post_10_1.png)
 
+Lot Frontage vs Lot Area and 1st Flr SF (w/ taking the log of each)
 
+
+Clean Data
 
 ```python
 # def fill_lot_frontage(dataframe):
@@ -152,12 +156,7 @@ fill_lot_frontage(df)
 fill_lot_frontage(test)
 ```
 
-I originally tried to have this function not have to interate through each row and change all null values at once but that was giving me some issues for some reason. I would like to work on this again so that I can run this function after a TTS (since it iterates over each row, I need to run this before removing any outliers).
-
-
-```python
-assert df['Lot Frontage'].isnull().sum() == 0 & test['Lot Frontage'].isnull().sum()
-```
+I originally tried to have this function not have to interate through each row and change all null values at once but that was giving me some issues for some reason. I would like to work on this again so that I can run this function after a train test split (since it iterates over each row, I need to run this before removing any outliers).
 
 
 ```python
@@ -174,7 +173,7 @@ assert df['Lot Frontage'].isnull().sum() == 0 & test['Lot Frontage'].isnull().su
 # change_outliers(df)
 # change_outliers(test)
 ```
-
+Function above changes outlier values. I decided not to run this function for this limited of a dataset. 
 
 ```python
 #inspect float columns representing areas (note, I plotted a few iterations of this to get to this set of columns)
@@ -186,7 +185,7 @@ sns.pairplot(data=df, y_vars=['SalePrice'], x_vars=['Lot Frontage', 'Lot Area', 
 ![png](/images/Project_2_blog_post_files/Project_2_blog_post_16_0.png)
 
 
-Clear outliers present above. Electing to remove them.
+Clear outliers present above. Elected to remove them.
 
 
 ```python
@@ -225,7 +224,7 @@ y = df['SalePrice']
 # X.isnull().sum().sort_values(ascending=False).head(30)
 ```
 
-Remaining null values are mostly in categorical features with datatype of objects. Will change these to 'NA' below
+Remaining null values are mostly in categorical features with datatype of objects. Changed these to 'NA' below:
 
 
 ```python
@@ -257,12 +256,6 @@ def fill_rest_nas(dataframe):
 fill_rest_nas(X)
 fill_rest_nas(test)
 ```
-
-
-```python
-assert X.isnull().sum().sum() == 0 & test.isnull().sum().sum() == 0
-```
-
 
 ```python
 # I wanted to combine bathrooms for the house and basements
@@ -301,12 +294,7 @@ def get_dummied(train, test):
 Xd, testd = get_dummied(X, test)
 ```
 
-
-```python
-assert Xd.shape[0] == X.shape[0] 
-assert testd.shape[0] == test.shape[0]
-assert Xd.shape[1] == testd.shape[1]
-```
+Modeling 
 
 Now that my feature engineering is completed, I will move into modeling. Since I will be running elastic net cross validation below, I do not need to do any feature selection now. This will cause my model to take a long time to run, but will get me to the optimal set of features to use.
 
