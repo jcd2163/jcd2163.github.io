@@ -22,7 +22,7 @@ output_notebook()
 
     <div class="bk-root">
         <a href="https://bokeh.pydata.org" target="_blank" class="bk-logo bk-logo-small bk-logo-notebook"></a>
-        <span id="faef3662-8791-4ffa-a6f9-d393e0164e39">Loading BokehJS ...</span>
+        <span id="965eca3b-1fe6-467a-b065-0d24972df842">Loading BokehJS ...</span>
     </div>
 
 
@@ -58,7 +58,7 @@ show(p, notebook_handle=True)
 
 
 <div class="bk-root">
-    <div class="bk-plotdiv" id="02eb2d44-a0c7-49f5-a6cd-4ba28eb304e7"></div>
+    <div class="bk-plotdiv" id="834d5569-56c1-4ed2-9a5d-c00734a7c1ab"></div>
 </div>
 
 
