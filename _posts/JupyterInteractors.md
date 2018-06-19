@@ -1,7 +1,5 @@
 
----
-title:  "demo"
-date:   2018-05-10 
+Basic Interactor Demo
 ---------------------
 
 This demo shows off an interactive visualization using [Bokeh](https://bokeh.pydata.org) for plotting, and Ipython interactors for widgets. The demo runs entirely inside the Ipython notebook, with no Bokeh server required.
