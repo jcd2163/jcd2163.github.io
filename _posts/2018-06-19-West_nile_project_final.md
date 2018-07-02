@@ -11,9 +11,10 @@ Some parts of this project that I really enjoyed were the advanced feature engin
 
 I hope you enjoy reading through my code and explanations as much as I did working on this project! As always, feel free to reach out with any questions or comments.
 
-!['West Nile Virus Presence by Month'](movie3.gif)
 
-![title](./map.png)
+![gif](/images/West_nile_project_final_files/movie3.gif)
+
+![png](/images/West_nile_project_final_files/map.png)
 
 
 # Data Exploration
@@ -923,8 +924,6 @@ ax.scatter(
 ```
 
 
- 
-
 
 ```python
 for i in train_data['month'].drop_duplicates().values:
@@ -938,7 +937,6 @@ for i in train_data['month'].drop_duplicates().values:
     plt.savefig(f'month_{i}.png')
     plt.close(fig);
 ```
-
 
 ```python
 !convert -delay 50 month*.png movie2.gif
