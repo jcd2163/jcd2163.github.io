@@ -1550,7 +1550,6 @@ coef50.sort_values(by='abs').plot(y='Coefficient',x='Feature',kind='barh', figsi
 ![png](/images/West_nile_project_final_files/West_nile_project_final_56_0.png)
 
 
-
 ```python
 pipeline_rf = Pipeline([
     ('features', FeatureUnion([
@@ -1562,6 +1561,7 @@ pipeline_rf = Pipeline([
         ('week', week),
         ('cluster',cluster),
         ('spray_cluster',spray_cluster),
+        ('month_cluster',month_cluster),
         ('cont_features', Pipeline([
                       ('continuous', SampleExtractor(cont_col_list)),
                       ])),
@@ -1580,22 +1580,327 @@ params_rf = {
 }
     
 
-gs3 = GridSearchCV(pipeline_rf,param_grid=params_rf, scoring='roc_auc')
-gs3.fit(X_train,y_train)
-print('best cv score', gs3.best_score_)
-print('best paramas', gs3.best_params_)
-print('test score', gs3.score(X_test, y_test))
+gs2 = GridSearchCV(pipeline_rf,param_grid=params_rf, scoring='roc_auc')
+gs2.fit(X_train,y_train)
+print('best cv score', gs2.best_score_)
+print('best paramas', gs2.best_params_)
+print('test score', gs2.score(X_test, y_test))
+```
+
+    best cv score 0.8095833270494316
+    best paramas {'rf__max_depth': 10, 'rf__max_features': 'auto', 'rf__n_estimators': 100, 'scale__model': MinMaxScaler(copy=True, feature_range=(0, 1))}
+    test score 0.8663261937326927
+
+
+
+```python
+model_rf = gs2.best_estimator_
+model_rf.fit(X, y)
+test_pred2 = model_rf.predict_proba(predict_data)
+test_pred2 = pd.DataFrame(test_pred2)
+test_pred2['Id'] = [i for i in range(1,116294)]
+test_pred2.rename({1:'WnvPresent'}, axis=1, inplace=True)
+test_pred2.drop([0],axis=1,inplace=True)
+test_pred2.to_csv('test_pred_50.csv',index=False)
 ```
 
 
 ```python
-model_rf = gs3.best_estimator_
-model_rf.fit(X, y)
-test_pred3 = model_rf.predict_proba(predict_data)
-test_pred3 = pd.DataFrame(test_pred3)
-test_pred3['Id'] = [i for i in range(1,116294)]
-test_pred3.rename({1:'WnvPresent'}, axis=1, inplace=True)
-test_pred3.drop([0],axis=1,inplace=True)
-test_pred3.to_csv('test_pred_45.csv',index=False)
+feature_importances = pd.DataFrame(feature_names, model_rf.steps[3][1].feature_importances_.tolist(),columns=['Feature'])
+feature_importances.reset_index(inplace=True)
+feature_importances.rename({'index':'Feature Importance'}, axis=1, inplace=True)
+
+feature_importances.sort_values(by='Feature Importance', ascending=False)[:50]
 ```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Feature Importance</th>
+      <th>Feature</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>412</th>
+      <td>0.034035</td>
+      <td>time_since_max_wnvpresent</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.027067</td>
+      <td>species_culex_pipiens</td>
+    </tr>
+    <tr>
+      <th>401</th>
+      <td>0.023069</td>
+      <td>day_of_year</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.019823</td>
+      <td>species_culex_restuans</td>
+    </tr>
+    <tr>
+      <th>529</th>
+      <td>0.014650</td>
+      <td>Sunset_rolling_30</td>
+    </tr>
+    <tr>
+      <th>483</th>
+      <td>0.014350</td>
+      <td>day_length_rolling_10</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>0.013294</td>
+      <td>restuans</td>
+    </tr>
+    <tr>
+      <th>492</th>
+      <td>0.012848</td>
+      <td>Sunrise_rolling_14</td>
+    </tr>
+    <tr>
+      <th>493</th>
+      <td>0.012846</td>
+      <td>Sunset_rolling_14</td>
+    </tr>
+    <tr>
+      <th>475</th>
+      <td>0.012584</td>
+      <td>Sunset_rolling_10</td>
+    </tr>
+    <tr>
+      <th>474</th>
+      <td>0.011776</td>
+      <td>Sunrise_rolling_10</td>
+    </tr>
+    <tr>
+      <th>523</th>
+      <td>0.011266</td>
+      <td>Tavg_rolling_30</td>
+    </tr>
+    <tr>
+      <th>429</th>
+      <td>0.010870</td>
+      <td>day_length</td>
+    </tr>
+    <tr>
+      <th>505</th>
+      <td>0.010711</td>
+      <td>Tavg_rolling_21</td>
+    </tr>
+    <tr>
+      <th>439</th>
+      <td>0.010655</td>
+      <td>Sunset_rolling_3</td>
+    </tr>
+    <tr>
+      <th>501</th>
+      <td>0.010277</td>
+      <td>day_length_rolling_14</td>
+    </tr>
+    <tr>
+      <th>535</th>
+      <td>0.009478</td>
+      <td>AvgSpeed_rolling_30</td>
+    </tr>
+    <tr>
+      <th>601</th>
+      <td>0.009427</td>
+      <td>Sunset_shift_4</td>
+    </tr>
+    <tr>
+      <th>528</th>
+      <td>0.009351</td>
+      <td>Sunrise_rolling_30</td>
+    </tr>
+    <tr>
+      <th>537</th>
+      <td>0.008969</td>
+      <td>day_length_rolling_30</td>
+    </tr>
+    <tr>
+      <th>465</th>
+      <td>0.008815</td>
+      <td>day_length_rolling_5</td>
+    </tr>
+    <tr>
+      <th>508</th>
+      <td>0.008596</td>
+      <td>Heat_rolling_21</td>
+    </tr>
+    <tr>
+      <th>457</th>
+      <td>0.008467</td>
+      <td>Sunset_rolling_5</td>
+    </tr>
+    <tr>
+      <th>447</th>
+      <td>0.008378</td>
+      <td>day_length_rolling_3</td>
+    </tr>
+    <tr>
+      <th>506</th>
+      <td>0.008326</td>
+      <td>DewPoint_rolling_21</td>
+    </tr>
+    <tr>
+      <th>522</th>
+      <td>0.008144</td>
+      <td>Tmin_rolling_30</td>
+    </tr>
+    <tr>
+      <th>525</th>
+      <td>0.008080</td>
+      <td>WetBulb_rolling_30</td>
+    </tr>
+    <tr>
+      <th>681</th>
+      <td>0.007550</td>
+      <td>day_length_shift_8</td>
+    </tr>
+    <tr>
+      <th>489</th>
+      <td>0.007481</td>
+      <td>WetBulb_rolling_14</td>
+    </tr>
+    <tr>
+      <th>561</th>
+      <td>0.007240</td>
+      <td>WetBulb_shift_2</td>
+    </tr>
+    <tr>
+      <th>495</th>
+      <td>0.006654</td>
+      <td>StnPressure_rolling_14</td>
+    </tr>
+    <tr>
+      <th>565</th>
+      <td>0.006422</td>
+      <td>Sunset_shift_2</td>
+    </tr>
+    <tr>
+      <th>434</th>
+      <td>0.006197</td>
+      <td>DewPoint_rolling_3</td>
+    </tr>
+    <tr>
+      <th>407</th>
+      <td>0.006093</td>
+      <td>bearing_to_hegewich</td>
+    </tr>
+    <tr>
+      <th>527</th>
+      <td>0.005751</td>
+      <td>Cool_rolling_30</td>
+    </tr>
+    <tr>
+      <th>531</th>
+      <td>0.005747</td>
+      <td>StnPressure_rolling_30</td>
+    </tr>
+    <tr>
+      <th>637</th>
+      <td>0.005328</td>
+      <td>Sunset_shift_6</td>
+    </tr>
+    <tr>
+      <th>532</th>
+      <td>0.005328</td>
+      <td>SeaLevel_rolling_30</td>
+    </tr>
+    <tr>
+      <th>519</th>
+      <td>0.005210</td>
+      <td>day_length_rolling_21</td>
+    </tr>
+    <tr>
+      <th>789</th>
+      <td>0.005083</td>
+      <td>day_length_shift_14</td>
+    </tr>
+    <tr>
+      <th>409</th>
+      <td>0.005079</td>
+      <td>bearing_to_mdw</td>
+    </tr>
+    <tr>
+      <th>753</th>
+      <td>0.005030</td>
+      <td>day_length_shift_12</td>
+    </tr>
+    <tr>
+      <th>404</th>
+      <td>0.004594</td>
+      <td>distance_to_ord_location</td>
+    </tr>
+    <tr>
+      <th>400</th>
+      <td>0.004470</td>
+      <td>AddressAccuracy</td>
+    </tr>
+    <tr>
+      <th>709</th>
+      <td>0.004409</td>
+      <td>Sunset_shift_10</td>
+    </tr>
+    <tr>
+      <th>521</th>
+      <td>0.004384</td>
+      <td>Tmax_rolling_30</td>
+    </tr>
+    <tr>
+      <th>536</th>
+      <td>0.004203</td>
+      <td>RelHum_rolling_30</td>
+    </tr>
+    <tr>
+      <th>731</th>
+      <td>0.004166</td>
+      <td>ResultSpeed_shift_11</td>
+    </tr>
+    <tr>
+      <th>421</th>
+      <td>0.003945</td>
+      <td>Sunset</td>
+    </tr>
+    <tr>
+      <th>695</th>
+      <td>0.003921</td>
+      <td>ResultSpeed_shift_9</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+feature_importances.sort_values(by='Feature Importance', ascending=False)[:50].plot(y='Feature Importance',x='Feature',kind='barh', figsize=(10,10), color='b', 
+                                  title='Coefficients for Top 50 Features - Random Forest');
+```
+
+
+![png](/images/West_nile_project_final_files/West_nile_project_final_61_0.png)
 
