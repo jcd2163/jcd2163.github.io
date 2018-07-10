@@ -677,29 +677,6 @@ hot_spots = {'ord_location':(41.993851, -87.937940), 'hegewich':(41.655528, -87.
 
 
 ```python
-def haversine_array(lat1, lng1, lat2, lng2):
-    lat1, lng1, lat2, lng2 = map(np.radians, (lat1, lng1, lat2, lng2))
-    AVG_EARTH_RADIUS = 6371  # in km
-    lat = lat2 - lat1
-    lng = lng2 - lng1
-    d = np.sin(lat * 0.5) ** 2 + np.cos(lat1) * np.cos(lat2) * np.sin(lng * 0.5) ** 2
-    h = 2 * AVG_EARTH_RADIUS * np.arcsin(np.sqrt(d))
-    return h
-```
-
-
-```python
-def bearing_array(lat1, lng1, lat2, lng2):
-    AVG_EARTH_RADIUS = 6371  # in km
-    lng_delta_rad = np.radians(lng2 - lng1)
-    lat1, lng1, lat2, lng2 = map(np.radians, (lat1, lng1, lat2, lng2))
-    y = np.sin(lng_delta_rad) * np.cos(lat2)
-    x = np.cos(lat1) * np.sin(lat2) - np.sin(lat1) * np.cos(lat2) * np.cos(lng_delta_rad)
-    return np.degrees(np.arctan2(y, x))
-```
-
-
-```python
 def add_distances_to_hotspots(df):
     for i,j in hot_spots.items():
         df['distance_to_' + i] = haversine_array(df['Latitude'], df['Longitude'], j[0], j[1])
@@ -852,13 +829,6 @@ plt.imshow(mapdata, cmap=plt.get_cmap('gray'), aspect=aspect, extent=lon_lat_box
 
 plt.scatter(X_spray['Longitude'], X_spray['Latitude'], c=X_spray['cluster'], marker='o');
 ```
-
-    /anaconda3/lib/python3.6/site-packages/ipykernel/__main__.py:4: SettingWithCopyWarning: 
-    A value is trying to be set on a copy of a slice from a DataFrame.
-    Try using .loc[row_indexer,col_indexer] = value instead
-    
-    See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
-
 
 
 ![png](/images/West_nile_project_final_files/West_nile_project_final_35_1.png)
