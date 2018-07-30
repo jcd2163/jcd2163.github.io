@@ -853,7 +853,7 @@ for j in train_data['year'].drop_duplicates().values:
 !convert -delay 75 plot*.png wnv.gif #covert collections of plots into GIF image 
 ```
 
-!['Wnv Present by Month'](wnv.gif)
+!['Wnv Present by Month'](/images/West_nile_project_final_files/wnv.gif)
 
 Presence of WNV by month. Month's 8-9 is clearly the time period with the highest prevalence of WNV, but there is some variability from year to year. I've created several more plots below, which allows us to more easily see this and visualize the data on year-to-year comparison. What is harder to discern is if there is any clustering by location. Later, I will use unsupervised learning to make a few features that make use of both time and location to create categorical groups. 
 
@@ -868,7 +868,7 @@ ax.set_ylabel('Number of Traps w/ WNV Present');
 ```
 
 
-![png](/images/West_nile_project_final-Copy2_files/West_nile_project_final-Copy2_40_0.png)
+![png](/images/West_nile_project_final_files/West_nile_project_final_40_0.png)
 
 
 Distribution of WNV presence by half-months. Skewed right or rather skewed towards the later part of the year. 
@@ -883,7 +883,7 @@ ax.set_ylabel('Number of Traps w/ WNV Present');
 ```
 
 
-![png](/images/West_nile_project_final-Copy2_files/West_nile_project_final-Copy2_42_0.png)
+![png](/images/West_nile_project_final_files/West_nile_project_final_42_0.png)
 
 
 Distribution of WNV presence over the training years. 2007 & 2013 have higher incidences of WNV presence. 
@@ -897,7 +897,7 @@ ax.set_ylabel('Number of Traps w/ WNV Present');
 ```
 
 
-![png](/images/West_nile_project_final-Copy2_files/West_nile_project_final-Copy2_44_0.png)
+![png](/images/West_nile_project_final_files/West_nile_project_final_44_0.png)
 
 
 Finally, some time series analysis by year for WNV presence throughout each year. The peaking between month's 8 and 9 is clearly seen, but much more prevalent in 2007 & 2013. In this graph, we can see that in 2011, incidences don't trail off as they do in other years. 
@@ -910,7 +910,7 @@ ax.set_ylabel('Number of Traps w/ WNV Present');
 ```
 
 
-![png](/images/West_nile_project_final-Copy2_files/West_nile_project_final-Copy2_46_0.png)
+![png](/images/West_nile_project_final_files/West_nile_project_final_46_0.png)
 
 
 Plot of distribution of WNV presence by day of year. Closely mirrors the plot above.
@@ -1026,7 +1026,7 @@ plt.title('Spray Clusters', size=15);
 
 
 
-![png](/images/West_nile_project_final-Copy2_files/West_nile_project_final-Copy2_50_1.png)
+![png](/images/West_nile_project_final_files/West_nile_project_final_50_1.png)
 
 
 Spray clusters plotted with WNV presence. Not sure too many insights can be garnered from this plot, but hopefully a feature based on the spray cluster locations will elicit some value. Also not sure where cluster 0 comes from. 
@@ -1054,7 +1054,7 @@ plt.title('Location Clusters', size=15);
 ```
 
 
-![png](/images/West_nile_project_final-Copy2_files/West_nile_project_final-Copy2_53_0.png)
+![png](/images/West_nile_project_final_files/West_nile_project_final_53_0.png)
 
 
 For my final clustering exercise, I wanted to incorporate an element of time of year for the grouping. This third dimension made it a bit harder to visualize the results and required me to scale the data before performing the unsupervised clustering.
@@ -1096,7 +1096,7 @@ plt.title('Location & Date Clusters', size=15);
 
 
 
-![png](/images/West_nile_project_final-Copy2_files/West_nile_project_final-Copy2_56_1.png)
+![png](/images/West_nile_project_final_files/West_nile_project_final_56_1.png)
 
 
 Plot of location and date clusters. Clustering indiscernable in two dimensional plot. 
@@ -1123,7 +1123,7 @@ for i in train_data['half_month'].unique():
 !convert -delay 100 half_month*.png cluster.gif #create GIF from images
 ```
 
-![](cluster.gif)
+![](/images/West_nile_project_final_files/cluster.gif)
 
 Plot of each time and location cluster. Still a bit harder to see how the clusters carry over half months. However, I think this accomplishes what I intended and will investigate better ways to visualize this overtime. Below, there is code for a 3D plot, but integrating a slider into the plot above may be the best approach.
 
@@ -1861,7 +1861,7 @@ coef50.sort_values(by='abs').plot(y='Coefficient',x='Feature',kind='barh', figsi
 ```
 
 
-![png](/images/West_nile_project_final-Copy2_files/West_nile_project_final-Copy2_85_0.png)
+![png](/images/West_nile_project_final_files/West_nile_project_final_85_0.png)
 
 
 Plot of top 50 coefficients for the SGD classification model. Nice blend of time, weather, and location features represented. Also, some of the species data seems to play an important role, which aligns with the fact that only three of the seven species are carriers of WNV, as shown below. 
@@ -1872,7 +1872,7 @@ train_data.groupby(by='Species')['WnvPresent'].sum().plot(kind='bar', colormap='
 ```
 
 
-![png](/images/West_nile_project_final-Copy2_files/West_nile_project_final-Copy2_87_0.png)
+![png](/images/West_nile_project_final_files/West_nile_project_final_87_0.png)
 
 
 Distribution of WNV presence by species. Only three out of the seven species are carriers.
@@ -2256,7 +2256,7 @@ feature_importances.sort_values(by='Feature Importance', ascending=False)[:50].p
 ```
 
 
-![png](/images/West_nile_project_final-Copy2_files/West_nile_project_final-Copy2_94_0.png)
+![png](/images/West_nile_project_final_files/West_nile_project_final_94_0.png)
 
 
 Note the differences in the top 50 features for this type of model. For instance, rolling averages appear much more frequently. These top 50 features make sense as they are what results in the lowest Gini impurity when determining splits (i.e. these appear higher in the tree and are therefore weighted more heavily in terms of feature importance).
@@ -2294,7 +2294,7 @@ plt.show()
 ```
 
 
-![png](/images/West_nile_project_final-Copy2_files/West_nile_project_final-Copy2_98_0.png)
+![png](/images/West_nile_project_final_files/West_nile_project_final_98_0.png)
 
 
 Final results of the two selected models. SGD Classifier slightly better performer based on an ROC AUC score for both the test and prediction set. 
