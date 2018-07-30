@@ -3,7 +3,7 @@ title:  "Project: West Nile Virus - Chicago"
 date:   2018-06-19 
 ---
 # Project Intro
-For this project, we were given the West Nile Virus Predicition Challenge from Kaggle https://www.kaggle.com/c/predict-west-nile-virus/ and tasked with 1) predicting the presence of West Nile over the prediction data set (over 116,000 rows), 2) create a cost benefit analysis on the effectiveness of spraying, and 3) present in class with our findings. This was our first group project and I really enjoyed the experience of collaborating with my classmates to strategize our plan and execute it together. 
+For this project, we were given the West Nile Virus Predicition Challenge from Kaggle <link> https://www.kaggle.com/c/predict-west-nile-virus/ </link> and tasked with 1) predicting the presence of West Nile over the prediction data set (over 116,000 rows), 2) create a cost benefit analysis on the effectiveness of spraying, and 3) present in class with our findings. This was our first group project and I really enjoyed the experience of collaborating with my classmates to strategize our plan and execute it together. 
 
 Below, I’ve provided code for the first objective around predicting West Nile Virus. Most of the this was written by myself except where I’ve indicated below. This task was especially challenging based on a number of factors, including 1) unbalanced classes (roughly 5% of samples were positive for West Nile Virus, 2) data availability (we were provided the number of mosquitos per trap and spraying information only for the training samples), and 3) low correlation between features and target. Below, I’ve detailed our approach to dealing with each of these factors.
 
