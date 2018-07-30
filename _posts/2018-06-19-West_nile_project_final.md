@@ -11,7 +11,7 @@ Some parts of this project that I really enjoyed were the data visulizations inc
 
 Ultimately, I scored a 0.74527 on Kaggle, which I think is pretty good considering that came from a simple, linear based model rather than a stacked model or neural network which is what some of the top scorers use. I was also happy that a lot of my engineered features ranked near the top in terms of magnitude of coefficients or feature importance.
 
-All in all, I hope you enjoy reading through my code and explanations as much as I did working on this project! As always, feel free to reach out with any questions or comments. The link to my GitHub for this project can be found here: https://github.com/joedorfman/west_nile_virus. 
+All in all, I hope you enjoy reading through my code and explanations as much as I did working on this project! As always, feel free to reach out with any questions or comments. The link to my GitHub for this project can be found [here](https://github.com/joedorfman/west_nile_virus). 
 
 !['West Nile Virus Presence by Month'](/images/West_nile_project_final_files/wnv_presence_month.gif)
 
@@ -697,7 +697,7 @@ My next step was to create a sum of the number of mosquitos. This was due to a t
 
 After that, I created some features from the data and trap number data. Some of these were later turned into categorical features, such as month, week, and trap number, and some were used as the basis for additional features, such as day of year. Using day of year, I calculated a peak day of the year with the most WNV present and calculated an absolute value of the current day from that day. This turned out to be one of the most important features that I created. 
 
-Next, I used a few pre-built distance functions to calculate distances and bearings to some hotspots I found using the uber mapping tool. Also, I used these functions to assign the closest weather station to each trap. The haversine_array and bearing_array functions are sourced from this link: https://www.kaggle.com/gaborfodor/from-eda-to-the-top-lb-0-367.  
+Next, I used a few pre-built distance functions to calculate distances and bearings to some hotspots I found using the uber mapping tool. Also, I used these functions to assign the closest weather station to each trap. The haversine_array and bearing_array functions are sourced from [here](https://www.kaggle.com/gaborfodor/from-eda-to-the-top-lb-0-367).  
 
 
 ```python
@@ -822,7 +822,7 @@ predict_data = combine_with_weather(predict_data)
 
 Next, I used unsupervised learning to engineer new features from clustering. These created categorical features that grouped positive WNV  traps by location, location and month, and spray clusters. I wanted to see how these results compared to manually inspecting for clusters (as I did above). 
 
-I also created visualizations of the original data and clusters using the map that was provided from Kaggle. These included GIFs and even a 3D graph. For the maps, the scripts available via Kaggle were very helpful. I mostly used the link here: https://www.kaggle.com/khyh00/west-nile-heatmap/code. Creating these maps lead me to explore the data through further visualizations, as you will see below.
+I also created visualizations of the original data and clusters using the map that was provided from Kaggle. These included GIFs and even a 3D graph. For the maps, the scripts available via Kaggle were very helpful. I mostly used the link [here](https://www.kaggle.com/khyh00/west-nile-heatmap/code). Creating these maps lead me to explore the data through further visualizations, as you will see below.
 
 The first plot I created is a visualization of the WNV positive traps for each half month and year. This was similar to the work i did with the uber kepler tool but wanted to recreate here as well. 
 
@@ -1017,13 +1017,6 @@ plt.scatter(train_data[train_data['WnvPresent'] == 1]['Longitude'],
 plt.legend()
 plt.title('Spray Clusters', size=15);
 ```
-
-    /anaconda3/lib/python3.6/site-packages/ipykernel/__main__.py:4: SettingWithCopyWarning: 
-    A value is trying to be set on a copy of a slice from a DataFrame.
-    Try using .loc[row_indexer,col_indexer] = value instead
-    
-    See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
-
 
 
 ![png](/images/West_nile_project_final_files/West_nile_project_final_50_1.png)
@@ -1290,7 +1283,7 @@ assert [cols for cols in train_data.columns if cols not in predict_data.columns]
 
 # Model & Results
 
-For the modeling portion, I used a pipeline based on classes built by my awesome teacher Adam! ModelTransformer allows for multiple scalers to be used in a pipeline. SampleExtractor and DenseTransformer allow CountVectorizer to be used for dummying features without data leakage from train to test or predict datasets. More information can be found on Adam's website: https://blomadam.github.io/.
+For the modeling portion, I used a pipeline based on classes built by my awesome teacher Adam! ModelTransformer allows for multiple scalers to be used in a pipeline. SampleExtractor and DenseTransformer allow CountVectorizer to be used for dummying features without data leakage from train to test or predict datasets. More information can be found on Adam's website [here](https://blomadam.github.io/).
 
 In addition to the pipepline, I used Train Test Split, StratifiedKFold, and GridSearchCV (Cross Validation) to help determine model parameters. Train test splitting allows for a holdout test set to be created to be scored after the best model parameters are selected through gridsearch with cross validation. StratifiedKFold ensure that the classes are balanced in each CV set, thereby ensuring that the model is trained equally for each class. Cross validation and StratifiedKFold also both ensure that overfitting is reduced. 
 
@@ -2261,7 +2254,7 @@ feature_importances.sort_values(by='Feature Importance', ascending=False)[:50].p
 
 Note the differences in the top 50 features for this type of model. For instance, rolling averages appear much more frequently. These top 50 features make sense as they are what results in the lowest Gini impurity when determining splits (i.e. these appear higher in the tree and are therefore weighted more heavily in terms of feature importance).
 
-Finally, I will plot the ROC AUC scores for each model. Helpful code for doing this was found here: https://stackoverflow.com/questions/25009284/how-to-plot-roc-curve-in-python
+Finally, I will plot the ROC AUC scores for each model. Helpful code for doing this was found [here](https://stackoverflow.com/questions/25009284/how-to-plot-roc-curve-in-python)
 
 
 ```python
