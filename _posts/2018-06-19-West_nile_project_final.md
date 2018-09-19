@@ -13,7 +13,7 @@ Ultimately, I scored a 0.74527 on Kaggle, which I think is pretty good consideri
 
 All in all, I hope you enjoy reading through my code and explanations as much as I did working on this project! As always, feel free to reach out with any questions or comments. The link to my GitHub for this project can be found [here](https://github.com/joedorfman/west_nile_virus). 
 
-!['West Nile Virus Presence by Month'](/images/West_nile_project_final_files/wnv_presence_month.gif)
+!['West Nile Virus Presence by Month'](/images/West_nile_project_final_files/wnv_presence_month2.gif)
 
 West Nile Virus (WNV) presence by month. Concentration clearly seen in months 8 & 9 (August and September). However, we can see that the majority class is clearly WNV not present. 
 
